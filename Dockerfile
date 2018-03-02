@@ -2,6 +2,7 @@ FROM python:3.6.2
 
 # Install TA-lib
 RUN apt-get update && apt-get -y install build-essential && apt-get clean
+
 RUN curl -L http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz | \
   tar xzvf - && \
   cd ta-lib && \
@@ -10,7 +11,7 @@ RUN curl -L http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz | 
 ENV LD_LIBRARY_PATH /usr/local/lib
 
 # Prepare environment
-RUN mkdir /freqtrade
+# RUN mkdir /freqtrade
 WORKDIR /freqtrade
 
 # Install dependencies
@@ -19,5 +20,8 @@ RUN pip install -r requirements.txt
 
 # Install and execute
 COPY . /freqtrade/
+
 RUN pip install -e .
-ENTRYPOINT ["freqtrade"]
+
+# ENTRYPOINT ["freqtrade"]
+CMD ["freqtrade"]
